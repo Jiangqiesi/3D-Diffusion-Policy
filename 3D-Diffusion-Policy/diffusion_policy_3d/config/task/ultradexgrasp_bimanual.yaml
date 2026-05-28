@@ -1,0 +1,27 @@
+name: ultradexgrasp_bimanual
+
+task_name: ultradexgrasp_bimanual
+
+shape_meta: &shape_meta
+  obs:
+    point_cloud:
+      shape: [1024, 3]
+      type: point_cloud
+    agent_pos:
+      shape: [50]
+      type: low_dim
+  action:
+    shape: [36]
+
+env_runner: null
+
+dataset:
+  _target_: diffusion_policy_3d.dataset.ultradexgrasp_dataset.UltraDexGraspDataset
+  zarr_path: data/ultradexgrasp/bimanual.zarr
+  horizon: ${horizon}
+  pad_before: ${eval:'${n_obs_steps}-1'}
+  pad_after: ${eval:'${n_action_steps}-1'}
+  seed: 42
+  val_ratio: 0.02
+  max_train_episodes: null
+  use_mask_channel: false

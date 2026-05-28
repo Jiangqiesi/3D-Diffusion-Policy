@@ -3,6 +3,7 @@
 *.pyc
 .DS_Store
 __pycache__/
+.venv/
 scripts/plot/pdfs/
 videos/
 run_3seed.sh

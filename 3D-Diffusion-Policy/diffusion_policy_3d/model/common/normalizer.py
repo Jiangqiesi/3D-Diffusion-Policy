@@ -1,8 +1,10 @@
 from typing import Union, Dict
 
 import unittest
-import zarr
 import numpy as np
+if not hasattr(np, 'product'):
+    np.product = np.prod
+import zarr
 import torch
 import torch.nn as nn
 from diffusion_policy_3d.common.pytorch_util import dict_apply

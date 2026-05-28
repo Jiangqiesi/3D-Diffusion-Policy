@@ -9,6 +9,19 @@
 DEBUG=False
 save_ckpt=True
 
+workspace_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+site_packages_dir="$(find "${workspace_root}/.venv/lib" -maxdepth 1 -type d -name 'python*' | head -n 1)/site-packages"
+nvjitlink_lib="${site_packages_dir}/nvidia/nvjitlink/lib"
+cusparse_lib="${site_packages_dir}/nvidia/cusparse/lib"
+extra_ld_library_path=""
+if [ -d "${nvjitlink_lib}" ]; then
+  extra_ld_library_path="${nvjitlink_lib}:${extra_ld_library_path}"
+fi
+if [ -d "${cusparse_lib}" ]; then
+  extra_ld_library_path="${cusparse_lib}:${extra_ld_library_path}"
+fi
+export LD_LIBRARY_PATH="${extra_ld_library_path}${LD_LIBRARY_PATH:-}"
+
 alg_name=${1}
 task_name=${2}
 config_name=${alg_name}
@@ -34,7 +47,7 @@ else
     echo -e "\033[33mTrain mode\033[0m"
 fi
 
-cd 3D-Diffusion-Policy
+cd "${workspace_root}/3D-Diffusion-Policy"
 
 
 export HYDRA_FULL_ERROR=1 

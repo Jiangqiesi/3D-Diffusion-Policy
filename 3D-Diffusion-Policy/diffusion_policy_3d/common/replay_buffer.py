@@ -2,9 +2,11 @@ from typing import Union, Dict, Optional
 import os
 import math
 import numbers
+import numpy as np
+if not hasattr(np, 'product'):
+    np.product = np.prod
 import zarr
 import numcodecs
-import numpy as np
 from functools import cached_property
 from termcolor import cprint
 

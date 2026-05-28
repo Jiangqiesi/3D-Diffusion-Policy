@@ -3,8 +3,9 @@ if __name__ == "__main__":
     import os
     import pathlib
 
-    ROOT_DIR = str(pathlib.Path(__file__).parent.parent.parent)
-    sys.path.append(ROOT_DIR)
+    PKG_DIR = pathlib.Path(__file__).resolve().parent
+    ROOT_DIR = str(PKG_DIR.parent)
+    sys.path.insert(0, str(PKG_DIR))
     os.chdir(ROOT_DIR)
 
 import os
